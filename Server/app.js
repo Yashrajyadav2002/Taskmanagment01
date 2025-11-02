@@ -2,23 +2,31 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
-const bodyparser = require('body-parser');
-const cors = require('cors');
-const AdminRoute = require("./Routes/adminRoute");
-mongoose.connect(process.env.DBCON).than(()=>{
-    console.log("DB is connected succesfully !")
-});
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const AdminRoute = require("./routes/adminRoute");
 
-// Body-parser middleware
-app.use(bodyparser.urlencoded({ extended: true }))
-app.use(bodyparser.json())
+// ✅ Fix 1: 'then' was written as 'than'
+mongoose.connect(process.env.DBCONN)
+  .then(() => {
+    console.log("DB successfully connected!");
+  })
+  .catch((err) => {
+    console.error("DB connection failed:", err);
+  });
 
-// Use CORS middleware
+// ✅ body-parser middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// ✅ use cors middleware
 app.use(cors());
 
-app.use("/admin",AdminRoute);
+// ✅ use your admin route
+app.use("/admin", AdminRoute);
 
-const port = process.env.PORT || 8000
-app.listen(port,()=>{
-    console.log(`server run on ${port} port!`);
+// ✅ Fix 2: small log message correction
+const port = process.env.PORT || 7000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
