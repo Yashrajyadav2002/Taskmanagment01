@@ -5,7 +5,8 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
  const Home = ()=>{
     const [email,setEmail] = useState("");
-    const [password,setpassword] = useState("")
+    const [password,setpassword] = useState("");
+    const [usertype,setUserType]= useState("");
     const navigate = useNavigate();
 
 
@@ -47,11 +48,11 @@ import {useNavigate} from "react-router-dom";
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" name="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} />
+          <Form.Control type="password" name="password" value={password} onChange={(e)=>{setpassword(e.target.value)}} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Select User</Form.Label>
-          <Form.Select aria-label="Default select example" name="usertype" onChange={(e)=>{setUsertType(e.target.value)}}>
+          <Form.Select aria-label="Default select example" name="usertype" onChange={(e)=>{setUserType(e.target.value)}}>
             <option>select user type</option>
             <option value="employee">Employee</option>
             <option value="admin">Admin</option>
