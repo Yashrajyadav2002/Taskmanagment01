@@ -3,6 +3,7 @@ import {Link,Outlet} from "react-router-dom";
 const AdminDashBoard = ()=>{
     return(
         <>
+        <div id="mainf">
         <div id="admindash">
             <h1>Admin Dashboard</h1>
         </div>
@@ -17,6 +18,7 @@ const AdminDashBoard = ()=>{
             <div id="admincontact">
                 <Outlet/>
             </div>
+        </div>
         </div>
         </>
     )
