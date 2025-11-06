@@ -48,7 +48,7 @@ const CreateUser =()=>{
         <option value="Analyst">Analyst</option>
     </Form.Select>
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={handleSubmit}>
+      <Button variant="primary"  onClick={handleSubmit}>
         Submit
       </Button>
     </Form>

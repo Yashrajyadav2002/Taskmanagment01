@@ -11,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 
 
     const handleSubmit=async(e)=>{
-        e.preventdefault();
+        e.preventDefault();
         if(usertype=="admin")
         {
             try {
@@ -58,7 +58,7 @@ import {useNavigate} from "react-router-dom";
             <option value="admin">Admin</option>
           </Form.Select>
         </Form.Group>
-        <Button variant="primary" type="submit"  onClick={handleSubmit}>
+        <Button variant="primary"  onClick={handleSubmit}>
           Login
         </Button>
       </Form>
