@@ -1,30 +1,28 @@
-var nodemailer = require ('nodemailer');
-const useMailsender = (uname,uemail,upass)=>{
-    var transporter = nodemailer.createTransport({
-        service:'gamil',
-        auth:{
-            user: "",
-            pass:"",
-        }
-    });
+const nodemailer = require('nodemailer');
 
-    var mailOptions = {
-      from: '',
-      to: uemail,
-      subject: 'Sending Email by Admin using Node.js Task Management System ',
-      text:`Dear :  ${uname}\n Your Password :  ${upass}\n You can Login With Email and this Password`
-    };
-    
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email Succ sent: ' + info.response);
-        res.send(info.response);
-      }
-    });
-}
+const useMailsender = (uname, uemail, upass) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'yyash9631@gmail.com',
+      pass: 'hnqv beyv ckup vcsz',
+    },
+  });
 
-module.exports={
-    useMailsender,
-}
+  const mailOptions = {
+    from: 'yyash9631@gmail.com',
+    to: uemail,
+    subject: 'Sending Email by Admin using Node.js Task Management System',
+    text: `Dear ${uname},\nYour Password: ${upass}\nYou can login with your email and this password.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Email error:', error);
+    } else {
+      console.log('Email sent successfully:', info.response);
+    }
+  });
+};
+
+module.exports = { useMailsender };

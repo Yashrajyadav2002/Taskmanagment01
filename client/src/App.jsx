@@ -5,7 +5,11 @@ import AdminDashBoard from "./admin/AdminDashBoard";
 import CreateUser from "./admin/CreateUser";
 import AssignTask from "./admin/AssignTask";
 import EmpDashBoard from "./pages/EmpDashBoard";
+import MyTask  from "./pages/MyTask";
+import SubmitedTask from "./pages/SubmittedTask";
+import SeeReports from "./admin/SeeReports";
 const App = ()=>{
+
     return(
         <>
         <BrowserRouter>
@@ -19,14 +23,16 @@ const App = ()=>{
           <Route path="admin-dashboard" element={<AdminDashBoard />}>
            <Route path="create-user" element={<CreateUser/>} />
            <Route path="assign-task" element={<AssignTask/>}/>
+           <Route path="see-reports" element={<SeeReports/>}/>
 
           </Route>
         </Routes>
 
         <Routes>
           <Route path="emp-dashboard" element={<EmpDashBoard/>}>
+          <Route path="mytask" element={<MyTask/>}/>
+          <Route path="submitedtask" element={<SubmitedTask/>}/>
            
-          
           </Route>
 
         </Routes>

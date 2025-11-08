@@ -13,26 +13,44 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (usertype === "admin") {
       try {
         let api = `${import.meta.env.VITE_BACKEND_URL}/admin/login`;
-        const responce = await axios.post(api, { email, password });
-        console.log(responce);
-        localStorage.setItem("adminemail", responce.data.Admin.email);
-        alert(responce.data.msg);
+        const response = await axios.post(api, { email, password });
+        console.log(response);
+
+        localStorage.setItem("adminemail", response.data.Admin.email);
+        alert(response.data.msg);
         navigate("/admin-dashboard");
       } catch (error) {
         console.log(error);
-        alert(error.responce?.data?.msg || "Login failed");
+        // ✅ Fix: Corrected "responce" → "response"
+        alert(error.response?.data?.msg || "Invalid credentials or server error");
       }
     } else {
-      alert("Please select valid user type");
+      try {
+        let api = `${import.meta.env.VITE_BACKEND_URL}/employee/login`;
+        const response = await axios.post(api, { email, password });
+
+        console.log(response.data.employee.name);
+
+        localStorage.setItem("empname", response.data.employee.name);
+        localStorage.setItem("empemail", response.data.employee.email);
+        localStorage.setItem("empdesignation", response.data.employee.designation);
+        localStorage.setItem("empid", response.data.employee._id);
+
+        navigate("/emp-dashboard");
+      } catch (error) {
+        console.log(error);
+        // ✅ Fix: Added error alert for employee login too
+        alert(error.response?.data?.msg || "Invalid credentials or server error");
+      }
     }
   };
 
   return (
     <>
-  
       <div
         className="d-flex justify-content-center align-items-center vh-100"
         style={{
@@ -41,7 +59,6 @@ const Home = () => {
           fontFamily: "'Poppins', sans-serif",
         }}
       >
-        {/* ===== Login Card ===== */}
         <div
           className="card shadow-lg border-0 rounded-4 p-4"
           style={{
@@ -50,7 +67,6 @@ const Home = () => {
             animation: "fadeIn 1s ease-in-out",
           }}
         >
-          {/* ===== Header ===== */}
           <div className="text-center mb-4">
             <h2
               className="fw-bold"
@@ -68,9 +84,7 @@ const Home = () => {
             <hr className="mt-3" />
           </div>
 
-          {/* ===== Form ===== */}
           <Form onSubmit={handleSubmit}>
-            {/* Email */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="fw-semibold text-secondary">
                 Email Address
@@ -86,7 +100,6 @@ const Home = () => {
               />
             </Form.Group>
 
-            {/* Password */}
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label className="fw-semibold text-secondary">
                 Password
@@ -102,7 +115,6 @@ const Home = () => {
               />
             </Form.Group>
 
-            {/* User Type */}
             <Form.Group className="mb-4" controlId="formUserType">
               <Form.Label className="fw-semibold text-secondary">
                 Select User Type
@@ -119,14 +131,13 @@ const Home = () => {
               </Form.Select>
             </Form.Group>
 
-            {/* Submit Button */}
             <div className="d-grid">
               <Button
                 type="submit"
                 size="lg"
                 className="fw-semibold border-0"
                 style={{
-                  background: "linear-gradient(90deg, #d900ffff, #6610f2)",
+                  background: "linear-gradient(90deg, #d900ff, #6610f2)",
                   boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
                   transition: "transform 0.2s ease-in-out",
                 }}
@@ -142,7 +153,6 @@ const Home = () => {
             </div>
           </Form>
 
-          {/* ===== Footer ===== */}
           <div className="text-center mt-4">
             <p className="text-muted" style={{ fontSize: "0.85rem" }}>
               Forgot your password?{" "}
@@ -154,7 +164,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ===== Animation Keyframes ===== */}
       <style>
         {`
           @keyframes fadeIn {

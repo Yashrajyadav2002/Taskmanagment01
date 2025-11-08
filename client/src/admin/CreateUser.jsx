@@ -10,15 +10,17 @@ import { FaUserPlus, FaEnvelope, FaUserTie } from "react-icons/fa";
 const CreateUser = () => {
   const [input, setInput] = useState({});
 
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setInput((prev) => ({ ...prev, [name]: value }));
+       const handleInput=(e)=>{
+         let name=e.target.name;
+         let value=e.target.value;
+         setInput(values=>({...values, [name]:value}));
+         console.log(input);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // simple validation
+    
     if (!input.empname || !input.empemail || !input.designation) {
       toast.warning("⚠️ Please fill all required fields!", {
         position: "top-right",
@@ -29,7 +31,7 @@ const CreateUser = () => {
     }
 
     try {
-      const api = `${import.meta.env.VITE_BACKEND_URL}/admin/usercreate`;
+      let api = `${import.meta.env.VITE_BACKEND_URL}/admin/usercreate`;
       const response = await axios.post(api, input);
       console.log(response.data);
       toast.success("✅ User Created Successfully!", {
@@ -37,7 +39,7 @@ const CreateUser = () => {
         autoClose: 2500,
         theme: "colored",
       });
-      setInput({}); // reset form values (controlled inputs use fallback)
+      // setInput({});
     } catch (error) {
       console.error(error);
       toast.error("❌ Failed to Create User", {
@@ -48,7 +50,7 @@ const CreateUser = () => {
     }
   };
 
-  // helper to add hover effect without touching e.target (safer)
+
   const handleBtnEnter = (ev) => {
     const el = ev.currentTarget;
     el.style.transform = "scale(1.03)";

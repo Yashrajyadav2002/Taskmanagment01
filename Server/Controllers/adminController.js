@@ -1,9 +1,8 @@
 const AdminModel = require ("../models/adminModel");
 const Userpassword = require("../middlewares/randomPassword");
 const emailSend = require("../middlewares/empMailSen");
-
 const EmpModel = require ("../models/empModel");
-
+const TaskModel = require("../models/empModel");
 const adminLogin = async(req,res)=>{
     const {email,password}=req.body;
     try {
@@ -26,7 +25,7 @@ const adminLogin = async(req,res)=>{
    const userCreate = async (req,res)=>{
     const {empname,empemail,designation}=req.body;
     const emppassword = Userpassword.myPassword();
-    emailSend.userMailsender(empname,empemail,emppassword);
+    emailSend.useMailsender(empname,empemail,emppassword);
 
     const Empolyee =await EmpModel.create({
 
@@ -38,7 +37,26 @@ const adminLogin = async(req,res)=>{
     res.status(201).send("user succesfully created !!!!")
    }
 
+   const empDisplay = async(req,res)=>{
+    const empolyee =await EmpModel.find();
+    res.status(200).send(empolyee);
+   }
+
+   const taskSave  =async(req,res)=>{
+    const {id,task,duration,priority}=req.body;
+    const emptask = await TaskModel.create({
+        task:task,
+        duration:duration,
+        priority:priority,
+        empid:id
+    })
+
+    res.status(201).send("Task Succesfully Created!")
+   }
+
 module.exports={
     adminLogin,
     userCreate,
+    empDisplay,
+    taskSave,
 }
