@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 const AssignTask = ()=>{
-    const [ mydata,setmydata]= useState("");
+    const [ mydata,setmydata]= useState([]);
     const [show, setShow]= useState(false);
     const [ input,setInput]= useState({});
     const [uid,setUid]= useState("");

@@ -64,6 +64,7 @@ const CreateUser = () => {
       "linear-gradient(90deg, #9a3dabff 0%, #772999ff 100%)";
   };
 
+  
   return (
     <div
       className="d-flex justify-content-center align-items-center min-vh-100"
