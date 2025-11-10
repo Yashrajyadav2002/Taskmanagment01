@@ -25,7 +25,8 @@ app.use(cors());
 
 //  use your admin route
 app.use("/admin", AdminRoute);
-app.use("/empolyee",EmpRoute);
+
+app.use("/employee",EmpRoute);
 
 
 const port = process.env.PORT || 7000;
