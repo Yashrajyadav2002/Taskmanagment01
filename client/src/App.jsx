@@ -8,12 +8,14 @@ import EmpDashBoard from "./pages/EmpDashBoard";
 import MyTask  from "./pages/MyTask";
 import SubmitedTask from "./pages/SubmittedTask";
 import SeeReports from "./admin/SeeReports";
+
 const App = ()=>{
 
     return(
         <>
         <BrowserRouter>
         <Routes>
+        
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
 

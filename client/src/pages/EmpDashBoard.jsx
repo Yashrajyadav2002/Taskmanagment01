@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   FaTasks,
@@ -14,6 +14,7 @@ import { useState } from "react";
 
 const EmpDashBoard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
@@ -31,19 +32,27 @@ const EmpDashBoard = () => {
   const toggleTheme = () => setDarkMode(!darkMode);
 
   return (
-    <div className={darkMode ? "bg-dark text-light" : "bg-white text-dark"}>
+    <div
+      className={`${
+        darkMode ? "bg-dark text-light" : "bg-white text-dark"
+      } transition-all`}
+      style={{
+        minHeight: "100vh",
+        transition: "all 0.4s ease-in-out",
+      }}
+    >
       {/* Header */}
       <header
         className="d-flex justify-content-between align-items-center px-4 py-3 shadow-sm"
         style={{
           background: darkMode
-            ? "linear-gradient(90deg, #212529, #343a40)"
-            : "linear-gradient(90deg, #6f42c1, #6610f2)",
+            ? "linear-gradient(90deg, #1f1f1f, #343a40)"
+            : "linear-gradient(90deg, #6f42c1, #5a1fcf)",
           color: "white",
+          transition: "background 0.4s ease-in-out",
         }}
       >
         <div className="d-flex align-items-center gap-3">
-          {/* Mobile menu toggle */}
           <button
             className="btn btn-light d-lg-none"
             style={{
@@ -64,15 +73,19 @@ const EmpDashBoard = () => {
 
         <div className="d-flex align-items-center gap-3">
           <div className="text-end">
-            <h6 className="m-0 fw-semibold">{empName}</h6>
+            <h6 className="m-0 fw-semibold text-capitalize">{empName}</h6>
             <small className="opacity-75">{empDesignation}</small>
           </div>
 
-          {/* Dark Mode Button */}
+          {/* Dark Mode Toggle */}
           <button
             onClick={toggleTheme}
             className="btn btn-light rounded-circle d-flex align-items-center justify-content-center"
-            style={{ width: "40px", height: "40px" }}
+            style={{
+              width: "40px",
+              height: "40px",
+              transition: "all 0.3s",
+            }}
           >
             {darkMode ? (
               <FaSun className="text-warning" />
@@ -81,16 +94,20 @@ const EmpDashBoard = () => {
             )}
           </button>
 
-          {/* Logout Button */}
+          {/* Logout */}
           <button
             onClick={handleLogout}
-            className="btn btn-sm btn-light text-danger fw-semibold d-flex align-items-center gap-2"
+            className="btn btn-sm fw-semibold d-flex align-items-center gap-2"
             style={{
               borderRadius: "20px",
               background: "white",
               border: "none",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.15)",
+              color: "#dc3545",
+              boxShadow: "0 3px 6px rgba(0,0,0,0.15)",
+              transition: "transform 0.2s ease-in-out",
             }}
+            onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
+            onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
           >
             <FaSignOutAlt /> Logout
           </button>
@@ -109,6 +126,7 @@ const EmpDashBoard = () => {
             position: menuOpen ? "absolute" : "relative",
             zIndex: "10",
             height: "100%",
+            transition: "all 0.3s ease-in-out",
           }}
         >
           <h5
@@ -116,18 +134,20 @@ const EmpDashBoard = () => {
               darkMode ? "text-light" : "text-secondary"
             }`}
           >
-            Menu
+            Navigation
           </h5>
+
           <nav className="nav flex-column">
             <Link
               to="mytask"
               onClick={() => setMenuOpen(false)}
               className={`nav-link mb-2 d-flex align-items-center fw-medium ${
-                darkMode ? "text-light" : "text-dark"
-              }`}
+                location.pathname.includes("mytask") ? "active-link" : ""
+              } ${darkMode ? "text-light" : "text-dark"}`}
               style={{
                 borderRadius: "8px",
-                transition: "background 0.3s",
+                padding: "10px 12px",
+                transition: "all 0.3s ease",
               }}
             >
               <FaTasks className="me-2 text-primary" /> My Tasks
@@ -137,11 +157,12 @@ const EmpDashBoard = () => {
               to="submitedtask"
               onClick={() => setMenuOpen(false)}
               className={`nav-link mb-2 d-flex align-items-center fw-medium ${
-                darkMode ? "text-light" : "text-dark"
-              }`}
+                location.pathname.includes("submitedtask") ? "active-link" : ""
+              } ${darkMode ? "text-light" : "text-dark"}`}
               style={{
                 borderRadius: "8px",
-                transition: "background 0.3s",
+                padding: "10px 12px",
+                transition: "all 0.3s ease",
               }}
             >
               <FaClipboardList className="me-2 text-success" /> Submitted Tasks
@@ -149,20 +170,25 @@ const EmpDashBoard = () => {
           </nav>
         </div>
 
-        {/* Main content */}
+        {/* Main Content */}
         <div
           className="flex-grow-1 p-4"
           style={{
-            backgroundColor: darkMode ? "#212529" : "#f5f6fa",
+            backgroundColor: darkMode ? "#181a1b" : "#f5f6fa",
             color: darkMode ? "#f8f9fa" : "#212529",
+            transition: "all 0.4s ease-in-out",
           }}
         >
           <div
-            className="card shadow-sm border-0 rounded-3"
+            className="card shadow border-0 rounded-4"
             style={{
               minHeight: "80vh",
-              background: darkMode ? "#2b3035" : "#fff",
+              background: darkMode
+                ? "rgba(33,37,41,0.85)"
+                : "rgba(255,255,255,0.95)",
               color: darkMode ? "#f8f9fa" : "#212529",
+              backdropFilter: "blur(10px)",
+              transition: "all 0.4s ease-in-out",
             }}
           >
             <div className="card-body">
@@ -171,6 +197,21 @@ const EmpDashBoard = () => {
           </div>
         </div>
       </div>
+
+      {/* 🔹 Active link effect */}
+      <style>
+        {`
+          .active-link {
+            background: linear-gradient(90deg, #6f42c1, #5a1fcf);
+            color: white !important;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+          }
+          .nav-link:hover {
+            background: rgba(111,66,193,0.1);
+            transform: translateX(4px);
+          }
+        `}
+      </style>
     </div>
   );
 };

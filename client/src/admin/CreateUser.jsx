@@ -3,29 +3,28 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUserPlus, FaEnvelope, FaUserTie } from "react-icons/fa";
 
 const CreateUser = () => {
   const [input, setInput] = useState({});
 
-       const handleInput=(e)=>{
-         let name=e.target.name;
-         let value=e.target.value;
-         setInput(values=>({...values, [name]:value}));
-         console.log(input);
+  const handleInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setInput((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     if (!input.empname || !input.empemail || !input.designation) {
       toast.warning("⚠️ Please fill all required fields!", {
-        position: "top-right",
+        position: "bottom-center", // 👈 fixed position
         autoClose: 2500,
         theme: "colored",
+        transition: Slide,
       });
       return;
     }
@@ -33,43 +32,41 @@ const CreateUser = () => {
     try {
       let api = `${import.meta.env.VITE_BACKEND_URL}/admin/usercreate`;
       const response = await axios.post(api, input);
-      console.log(response.data);
+
       toast.success("✅ User Created Successfully!", {
-        position: "top-right",
+        position: "bottom-center",
         autoClose: 2500,
         theme: "colored",
+        transition: Slide,
       });
-      // setInput({});
+
+      setInput({});
     } catch (error) {
-      console.error(error);
       toast.error("❌ Failed to Create User", {
-        position: "top-right",
+        position: "bottom-center",
         autoClose: 2500,
         theme: "colored",
+        transition: Slide,
       });
     }
   };
 
-
   const handleBtnEnter = (ev) => {
     const el = ev.currentTarget;
     el.style.transform = "scale(1.03)";
-    el.style.background =
-      "linear-gradient(90deg, #4400d6ff 0%, #003bb3 100%)";
+    el.style.background = "linear-gradient(90deg, #4400d6 0%, #003bb3 100%)";
   };
   const handleBtnLeave = (ev) => {
     const el = ev.currentTarget;
     el.style.transform = "scale(1)";
-    el.style.background =
-      "linear-gradient(90deg, #9a3dabff 0%, #772999ff 100%)";
+    el.style.background = "linear-gradient(90deg, #9a3dab 0%, #772999 100%)";
   };
 
-  
   return (
     <div
       className="d-flex justify-content-center align-items-center min-vh-100"
       style={{
-        background: "linear-gradient(120deg, #a8c0ff 0%, #3f2b96 100%)",
+        background: "linear-gradient(135deg, #ece9ff 0%, #d2cfff 100%)",
         padding: "20px",
       }}
     >
@@ -80,7 +77,7 @@ const CreateUser = () => {
         style={{
           width: "500px",
           background: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(12px)",
+          backdropFilter: "blur(14px)",
           transition: "all 0.3s ease",
         }}
       >
@@ -89,7 +86,7 @@ const CreateUser = () => {
           className="text-center text-white py-4 rounded-top-5"
           style={{
             background:
-              "linear-gradient(90deg, #7535b9ff 0%, #20b27aff 50%, #a32888ff 100%)",
+              "linear-gradient(90deg, #3a0ca3 0%, #7209b7 50%, #4361ee 100%)",
           }}
         >
           <FaUserPlus size={35} className="mb-2" />
@@ -103,7 +100,7 @@ const CreateUser = () => {
         <div className="p-4">
           <Form onSubmit={handleSubmit}>
             {/* Full Name */}
-            <Form.Group className="mb-4 position-relative">
+            <Form.Group className="mb-4">
               <Form.Label className="fw-semibold text-secondary">
                 <FaUserTie className="me-2 text-primary" />
                 Full Name
@@ -124,12 +121,11 @@ const CreateUser = () => {
                 }
                 onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                 onChange={handleInput}
-                required
               />
             </Form.Group>
 
             {/* Email */}
-            <Form.Group className="mb-4 position-relative">
+            <Form.Group className="mb-4">
               <Form.Label className="fw-semibold text-secondary">
                 <FaEnvelope className="me-2 text-primary" />
                 Email Address
@@ -150,7 +146,6 @@ const CreateUser = () => {
                 }
                 onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                 onChange={handleInput}
-                required
               />
             </Form.Group>
 
@@ -174,7 +169,6 @@ const CreateUser = () => {
                 }
                 onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                 onChange={handleInput}
-                required
               >
                 <option value="">Select designation</option>
                 <option value="Programmer">Programmer</option>
@@ -193,8 +187,8 @@ const CreateUser = () => {
                 className="fw-semibold rounded-4 border-0"
                 style={{
                   background:
-                    "linear-gradient(90deg, #28a4baff 0%, #004fd6 100%)",
-                  boxShadow: "0px 4px 14px rgba(0, 86, 179, 0.4)",
+                    "linear-gradient(90deg, #3a0ca3 0%, #4361ee 100%)",
+                  boxShadow: "0px 4px 14px rgba(67, 97, 238, 0.4)",
                   transition: "transform 0.2s ease, background 0.3s ease",
                 }}
                 onMouseEnter={handleBtnEnter}

@@ -50,10 +50,8 @@ const adminLogin = async(req,res)=>{
         priority:priority,
         empid:id
     })
-}
-
     res.status(201).send("Task Succesfully Created!");
-
+}
 
     const taskreportDisplay=async(req,res)=>{
         const taskreport=await TaskModel.find({
@@ -68,6 +66,24 @@ const adminLogin = async(req,res)=>{
         res.status(201).send({msg:"Task succesfully Updated "});
     
    }
+    const updateTask = async (req, res) => {
+      try {
+        const { id } = req.params;
+        const { task, duration, priority } = req.body;
+
+        const updatedTask = await TaskModel.findByIdAndUpdate(
+        id,
+        { task, duration, priority },
+        { new: true }
+      );
+
+       res.status(200).send(updatedTask);
+    } catch (error) {
+       console.log(error);
+       res.status(500).send({ msg: "Error updating task" });
+     }
+};
+
 
 module.exports={
     adminLogin,
@@ -75,5 +91,6 @@ module.exports={
     empDisplay,
     taskSave,
     taskreportDisplay,
-    taskReassign
+    taskReassign,
+    updateTask
 }

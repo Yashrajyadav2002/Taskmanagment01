@@ -7,6 +7,7 @@ route.post("/usercreate",AdminController.userCreate);
 route.get("/empdisplay",AdminController.empDisplay);
 route.post("/tasksave",AdminController.taskSave);
 route.get("/taskreportdisplay", AdminController.taskreportDisplay);
-route.get("/taskreassign", AdminController.taskReassign);
+// route.get("/taskreassign", AdminController.taskReassign);
+route.get("/taskupdate",AdminController.updateTask)
 
 module.exports = route;
