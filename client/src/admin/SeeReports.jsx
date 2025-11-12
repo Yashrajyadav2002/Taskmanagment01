@@ -71,6 +71,7 @@ const SeeReports = () => {
       const response = await axios.get(api);
       alert("Task reassigned successfully!");
       loadData();
+      console.log(response.data);
     } catch (error) {
       console.log(error);
       alert("Error reassigning task!");
@@ -91,7 +92,7 @@ const SeeReports = () => {
   };
 
   const getSubmitStatusBadge = (status) => {
-    switch (status?.toLowerCase()) {
+    switch (status?.toLowerCase) {
       case "submitted":
         return <Badge bg="info">Submitted</Badge>;
       case "not submitted":

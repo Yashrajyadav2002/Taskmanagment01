@@ -20,7 +20,7 @@ const MyTask = () => {
 
   const loadData = async () => {
     try {
-      const api = `${import.meta.env.VITE_BACKEND_URL}/empolyee/showtask/?id=${localStorage.getItem("empid")}`;
+      const api = `${import.meta.env.VITE_BACKEND_URL}/employee/showtask/?id=${localStorage.getItem("empid")}`;
       const response = await axios.get(api);
       setMydata(response.data);
     } catch (error) {

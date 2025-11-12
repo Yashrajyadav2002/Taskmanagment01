@@ -2,7 +2,7 @@ const AdminModel = require ("../models/adminModel");
 const Userpassword = require("../middlewares/randomPassword");
 const emailSend = require("../middlewares/empMailSen");
 const EmpModel = require ("../models/empModel");
-const TaskModel = require("../models/empModel");
+const TaskModel = require("../models/taskModel");
 const adminLogin = async(req,res)=>{
     const {email,password}=req.body;
     try {
@@ -50,6 +50,8 @@ const adminLogin = async(req,res)=>{
         priority:priority,
         empid:id
     })
+    // await emptask.save();
+    // console.log(req.body)
     res.status(201).send("Task Succesfully Created!");
 }
 

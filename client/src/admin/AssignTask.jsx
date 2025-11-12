@@ -85,7 +85,7 @@ const AssignTask = () => {
     });
 
     handleClose();
-    LoadData();
+    //LoadData();
   } catch (error) {
     console.log(error);
     toast.error("❌ Operation Failed!", {

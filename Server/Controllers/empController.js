@@ -66,7 +66,7 @@ const taskReports = async (req, res) => {
       return res.status(400).send({ msg: "Task ID is required" });
     }
 
-    await Taskmodel.findByIdAndUpdate(taskId, {
+    const task = await Taskmodel.findByIdAndUpdate(taskId, {
       taskstatus: taskstatus,
       completionday: taskduration,
       submitstatus: true,
