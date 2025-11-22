@@ -131,6 +131,7 @@ const AdminDashBoard = () => {
               <FaChartBar className="me-2" /> View Reports
             </Link>
 
+          
             <div className="mt-auto w-100 border-top pt-3 text-center small text-light-50">
               <p className="mb-0 opacity-75">© 2025 Task Management</p>
             </div>
